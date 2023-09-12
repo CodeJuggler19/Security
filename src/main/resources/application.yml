@@ -1,0 +1,54 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://localhost:3306/mysecurity?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    mapper-locations: classpath:/mapper/**/*.xml
+    username: jinym
+    password: jinym1234
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    database: mysql
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+    defer-datasource-initialization: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 960519079850-rvp9ilg2f8u6n3u1ggfsi7b86m6vsvp4.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  config-location: classpath:/config/mybatis-config.xml
+
+app:
+  auth:
+    tokenSecret: devigationbackendapplicationauthenticationsecurityjwttokenscretkeyvalue
+    tokenExpirationMsec: 10000 # 7200000
+  cors:
+    allowedOrigins: 'http://localhost:3000'
+  oauth2:
+    authorizedRedirectUris:
+      - 'http://localhost:3000/oauth2/redirect'
