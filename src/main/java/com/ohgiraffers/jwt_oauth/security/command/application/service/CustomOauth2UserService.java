@@ -21,6 +21,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
     private final FindUserService findUserService;
     private final CreateUserService createUserService;
+
     @Autowired
     public CustomOauth2UserService(FindUserService findUserService, CreateUserService createUserService) {
         this.findUserService = findUserService;
@@ -28,10 +29,8 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
     }
 
 
-
-
     @Override
-    public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest){
+    public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) {
         OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
 
         System.out.println("oAuth2User = " + oAuth2User);
@@ -43,24 +42,21 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         System.out.println("attributes = " + attributes);
         System.out.println("attributes.getAttributes() = " + attributes.getAttributes());
 
-        UserPrincipal socialUser=saveOrUpdate(attributes, registrationId);
+        UserPrincipal socialUser = saveOrUpdate(attributes, registrationId);
 
         return socialUser;
     }
 
-    private UserPrincipal saveOrUpdate(OAuth2UserInfo attributes, String provider){
-        FindUserDTO user=findUserService.findBySub((String) attributes.getAttributes().get("sub"));
-        System.out.println("user = " + user);
-        UserPrincipal oauthUser=null;
-        if(user==null){
-            CreateUserDTO createUserDTO= new CreateUserDTO((String) attributes.getAttributes().get("name"), (String) attributes.getAttributes().get("sub"),
-                    (String) attributes.getAttributes().get("email"),"GOOGLE", "ROLE_USER");
-            User newUser= createUserService.create(createUserDTO);
-            System.out.println("통과!");
-            System.out.println("newUser = " + newUser.toString());
-            oauthUser=UserPrincipal.create(newUser, attributes.getAttributes());
-        }else{
-            System.out.println("메롱");
+    private UserPrincipal saveOrUpdate(OAuth2UserInfo attributes, String provider) {
+        FindUserDTO user = findUserService.findBySub((String) attributes.getAttributes().get("sub"));
+        UserPrincipal oauthUser = null;
+        if (user == null) {
+            CreateUserDTO createUserDTO = new CreateUserDTO((String) attributes.getAttributes().get("name"), (String) attributes.getAttributes().get("sub"),
+                    (String) attributes.getAttributes().get("email"), attributes.getProvider(), "ROLE_USER");
+            User newUser = createUserService.create(createUserDTO);
+            oauthUser = UserPrincipal.create(newUser, attributes.getAttributes());
+        } else {
+            oauthUser = UserPrincipal.create(user, attributes.getAttributes());
         }
         return oauthUser;
     }

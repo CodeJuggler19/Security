@@ -9,14 +9,13 @@ public class Google extends OAuth2UserInfo{
 
     @Override
     public String getProvider() {
-        return null;
+        return "GOOGLE";
     }
 
     @Override
     public String getId() {
-        return null;
+        return (String) attributes.get("sub");
     }
-
     @Override
     public String getEmail() {
         return (String) attributes.get("email");
@@ -24,7 +23,7 @@ public class Google extends OAuth2UserInfo{
 
     @Override
     public String getImageUrl() {
-        return null;
+        return (String) attributes.get("picture");
     }
 
     @Override

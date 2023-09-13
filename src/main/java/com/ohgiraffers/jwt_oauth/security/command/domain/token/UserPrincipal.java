@@ -2,6 +2,7 @@ package com.ohgiraffers.jwt_oauth.security.command.domain.token;
 
 
 import com.ohgiraffers.jwt_oauth.user.command.domain.aggregate.entity.User;
+import com.ohgiraffers.jwt_oauth.user.query.application.dto.FindUserDTO;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -73,6 +74,9 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return UserPrincipal.builder(user.getId(), user.getName(), user.getRole(), attributes).build();
     }
 
+    public static UserPrincipal create(FindUserDTO userDTO, Map<String, Object> attributes){
+        return UserPrincipal.builder(userDTO.getId(), userDTO.getName(), userDTO.getRole(), attributes).build();
+    }
 //    public static UserPrincipal create(FindMemberDTO member, Map<String, Object> attributes) {
 //        return UserPrincipal.builder(member.getId(), member.getName(), Role.valueOf(member.getRole()).getKey(), attributes).build();
 //    }
@@ -126,4 +130,17 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return name;
     }
 
+
+    //test용 toString
+
+    @Override
+    public String toString() {
+        return "UserPrincipal{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", authorities=" + authorities +
+                ", attributes=" + attributes +
+                '}';
+    }
 }

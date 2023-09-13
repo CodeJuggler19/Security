@@ -35,6 +35,7 @@ spring:
           google:
             client-id: 960519079850-rvp9ilg2f8u6n3u1ggfsi7b86m6vsvp4.apps.googleusercontent.com
             client-secret: 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
+            redirect-uri: http://localhost:8080/oauth2/callback/google
             scope:
               - email
               - profile
@@ -46,7 +47,7 @@ mybatis:
 app:
   auth:
     tokenSecret: devigationbackendapplicationauthenticationsecurityjwttokenscretkeyvalue
-    tokenExpirationMsec: 10000 # 7200000
+    tokenExpirationMsec: 7200000 # 7200000
   cors:
     allowedOrigins: 'http://localhost:3000'
   oauth2:

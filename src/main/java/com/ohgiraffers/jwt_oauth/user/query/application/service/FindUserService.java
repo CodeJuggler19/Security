@@ -31,4 +31,17 @@ public class FindUserService {
             );
         }
     }
+
+    public FindUserDTO findById(Long userId){
+        User findUser = userMapper.findById(userId);
+
+        return new FindUserDTO(
+                findUser.getId(),
+                findUser.getSub(),
+                findUser.getName(),
+                findUser.getEmail(),
+                findUser.getProvider(),
+                findUser.getRole()
+        );
+    }
 }

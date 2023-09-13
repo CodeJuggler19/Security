@@ -19,6 +19,12 @@
         WHERE
             SUB = #{sub}
     </select>
-
+    <select id="findById" resultMap="UserMap">
+        SELECT *
+        FROM
+            USER_TB
+        WHERE
+            ID = #{userId}
+    </select>
 
 </mapper>
