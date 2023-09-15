@@ -8,7 +8,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @SpringBootApplication
 @EnableConfigurationProperties(AppProperties.class)
 public class SecurityWithOauthJwtApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(SecurityWithOauthJwtApplication.class, args);
     }

@@ -44,4 +44,17 @@ public class FindUserService {
                 findUser.getRole()
         );
     }
+
+    public FindUserDTO findByEmail(String email) {
+        User findUser = userMapper.findByEmail(email);
+
+        return new FindUserDTO(
+                findUser.getId(),
+                findUser.getSub(),
+                findUser.getName(),
+                findUser.getEmail(),
+                findUser.getProvider(),
+                findUser.getRole()
+        );
+    }
 }

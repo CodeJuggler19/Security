@@ -73,5 +73,4 @@ public class CustomTokenService {
             throw new OAuth2AuthenticationProcessingException("잘못된 JWT 토큰", ex.getCause());
         }
     }
-
 }

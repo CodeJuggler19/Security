@@ -26,5 +26,11 @@
         WHERE
             ID = #{userId}
     </select>
-
+    <select id="findByEmail" resultMap="UserMap">
+        SELECT *
+        FROM
+            USER_TB
+        WHERE
+            EMAIL = #{email}
+    </select>
 </mapper>

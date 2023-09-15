@@ -77,6 +77,12 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     public static UserPrincipal create(FindUserDTO userDTO, Map<String, Object> attributes){
         return UserPrincipal.builder(userDTO.getId(), userDTO.getName(), userDTO.getRole(), attributes).build();
     }
+
+    public static UserPrincipal create(FindUserDTO userDTO){
+        return UserPrincipal.builder(userDTO.getId(), userDTO.getName(), userDTO.getRole()).build();
+    }
+
+
 //    public static UserPrincipal create(FindMemberDTO member, Map<String, Object> attributes) {
 //        return UserPrincipal.builder(member.getId(), member.getName(), Role.valueOf(member.getRole()).getKey(), attributes).build();
 //    }

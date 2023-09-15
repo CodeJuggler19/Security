@@ -31,16 +31,16 @@ public class IssueTokenService {
     }
 
     @Transactional
-    public String issueTokenByUserPrincipal(UserPrincipal userPrincipal){
-        Long userId= userPrincipal.getId();
-        String userRole=userPrincipal.getRole();
+    public String issueTokenByUserPrincipal(UserPrincipal userPrincipal) {
+        Long userId = userPrincipal.getId();
+        String userRole = userPrincipal.getRole();
         Optional<Token> findToken = tokenRepository.findTokenByUser_Id(userId);
         String issuedToken = customTokenService.createToken(userId, userRole);
-        if(findToken.isPresent()){
+        if (findToken.isPresent()) {
             Token updateToken = findToken.get();
             updateToken.setAccessToken(issuedToken);
             tokenRepository.save(updateToken);
-        }else{
+        } else {
             Token createdToken = new Token(new UserVO(userId), issuedToken);
             tokenRepository.save(createdToken);
         }
@@ -48,13 +48,13 @@ public class IssueTokenService {
     }
 
     @Transactional
-    public String issueTokenByAccessToken(String accessToken){
+    public String issueTokenByAccessToken(String accessToken) {
         Token findToken = tokenRepository.findTokenByAccessToken(accessToken).orElseThrow(
                 () -> new TokenNotFoundException("해당 Access Token은 폐기된 토큰입니다.")
         );
         Long userId = findToken.getUser().getId();
 
-        FindUserDTO findUser= requestUser.getUserById(userId);
+        FindUserDTO findUser = requestUser.getUserById(userId);
 
         String issuedToken = customTokenService.createToken(findUser.getId(), findUser.getRole());
         findToken.setAccessToken(issuedToken);

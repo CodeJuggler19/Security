@@ -9,4 +9,6 @@ public interface UserMapper {
     User findBySub(String sub);
 
     User findById(Long userId);
+
+    User findByEmail(String email);
 }
